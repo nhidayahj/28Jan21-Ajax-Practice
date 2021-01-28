@@ -5,7 +5,10 @@ loadImg.addEventListener('click', async function(){
     //console.log(response.data);
 
     let artworkTitle = response.data.title; 
+    console.log(artworkTitle)
     document.querySelector('#title').innerHTML = artworkTitle;
-    let artworkImg = response.data.img_url
-    document.querySelector("#artwork").innerHTML = `<img src=` 
+    let artworkImg = response.data.image_url
+    console.log(artworkImg)
+    
+    document.querySelector("#artwork").innerHTML = `<img src="${artworkImg}" width='300' height='300'>`; 
 })
