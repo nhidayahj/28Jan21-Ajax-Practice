@@ -1,0 +1,17 @@
+[
+    {
+        "name":"Tan Ah Kow",   
+        "job_title":"Manager",
+        "salary":3000
+    },
+    {
+        "name":"Mary Sue",
+        "job_title":"Director",
+        "salary":4000
+    },
+    {
+        "name":"Kenny Lim",
+        "job_title":"Supervisor",
+        "salary":2500
+    }
+]

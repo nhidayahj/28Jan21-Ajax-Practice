@@ -1,0 +1,9 @@
+.image {
+    width: 300px;
+    border: 1px solid black;
+}
+
+.image2 {
+    width: 300px;
+    border: 1px red dashed;
+}
