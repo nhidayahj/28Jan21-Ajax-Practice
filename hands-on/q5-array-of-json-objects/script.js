@@ -1,24 +1,46 @@
-let loadUserBtn = document.querySelector("#load-users-btn")
-loadUserBtn.addEventListener('click', async function(){
-    let response = await axios.get("users.json");
-    //console.log(response.data);
 
-    let userDataContent = response.data.users;
-    console.log(userDataContent);
+// }); // end of event listener for loadUser button
 
-    for (let i of userDataContent) {
-        userData = ` 
-        <li>First Name: ${i.firstName}</li>
-        <li>Last Name: ${i.lastName}</li>
-        <li>Email Address: ${i.emailAddress}</li>`
+// let searchBtn = document.querySelector("#search")
+// searchBtn.addEventListener('click', function(){
+    
+// })
 
-        document.querySelector("#all-users").innerHTML += userData;
+
+function searchBtn(data) {
+    let searchBtn = document.querySelector("#search-btn")
+    searchBtn.addEventListener('click', () => {
+    let userID = parseInt(document.querySelector("#search-id").value);
+    let displaySearchedID = document.querySelector("#all-users");
+    
+    for (let user of data) {
+        if (userID == user.userId) {
+            let displayResult = `
+            <li>First Name: ${user.firstName}</li>
+            <li>Last Name: ${user.lastName}</li>
+            `
+            displaySearchedID.innerHTML = displayResult;
+        } 
     }
-    
-
-}); // end of event listener for loadUser button
-
-let searchBtn = document.querySelector("#search")
-searchBtn.addEventListener('click', function(){
-    
 })
+}
+
+let loadUser = document.querySelector("#load-users-btn");
+loadUser.addEventListener('click', async function(){
+    let response = await axios.get("users.json");
+    console.log(response.data);
+
+    for (let name of response.data.users){
+        let newData = `
+            <li>First Name: ${name.firstName}</li>
+            <li>Last Name: ${name.lastName}</li>
+            <li>Email Address: ${name.emailAddress}</li>
+    ` 
+    document.querySelector("#all-users").innerHTML += newData;
+    }
+
+    searchBtn(response.data.users);
+})
+
+
+//add event listener for the 'Search' Button 
