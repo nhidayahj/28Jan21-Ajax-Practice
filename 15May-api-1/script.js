@@ -38,7 +38,18 @@ window.addEventListener('DOMContentLoaded', async () => {
         dropdownOptions.innerHTML += menuItem;
     })
 
+    // let selectGenre = document.querySelectorAll('.genre')
+    // selectGenre.addEventListener('click', function() {
+    //     alert(selectGenre.value);
+    // })
 
+    document.addEventListener('click', function(event) {
+        if (event.target.matches('.genre')) {
+            console.log("selected genre: ",event.target.value);
+            let shows = filterGenre(allShows,event.target.value);
+            console.log(shows)
+        }
+    })
 
 })
 
