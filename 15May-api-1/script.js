@@ -1,8 +1,9 @@
 let allShows;
-
+let cleanList;
 window.addEventListener('DOMContentLoaded', async () => {
     allShows = await loadData();
-    console.log("All shows: ", allShows);
+    cleanList = cleanData(allShows)
+    console.log("clean data: ",cleanList)
     // get 12 random show 
     let arr = [];
     while (arr.length < 12) {
@@ -12,6 +13,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
     }
     console.log("Random show index: ", arr);
+    // display tv cards 
     for (let i of arr) {
         showCard = `
             <div class="col-3 mt-3 mb-3">
@@ -19,6 +21,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                 <img class="card-img-top" src="${allShows[i].image.medium}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">${allShows[i].name}</h5>
+                        <p class="card-body">Genre: ${allShows[i].genres.join(', ')}</p>
                         <a href="#" class="btn btn-primary" id=${allShows[i].id}>Read More</a>
                     </div>
                 </div>
@@ -27,27 +30,25 @@ window.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('content').innerHTML += showCard;
     }
 
-    // display dropdown items 
+    // display dropdown menu items 
     let allGenres = getGenre(allShows);
     let dropdownOptions = document.querySelector('#tv-genre-menu')
     allGenres.map(g => {
-       let menuItem = `
+        let menuItem = `
         <button class="dropdown-item genre" type="button"  
         value="${g}" id="${g.toLowerCase()}">${g}</button>
        `
         dropdownOptions.innerHTML += menuItem;
     })
 
-    // let selectGenre = document.querySelectorAll('.genre')
-    // selectGenre.addEventListener('click', function() {
-    //     alert(selectGenre.value);
-    // })
-
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         if (event.target.matches('.genre')) {
-            console.log("selected genre: ",event.target.value);
-            let shows = filterGenre(allShows,event.target.value);
+            console.log("selected genre: ", event.target.value);
+            let shows = filterGenre(cleanList, event.target.value);
             console.log(shows)
+            displayResult(shows,event.target.value);
+            showTVCards(shows)
+            
         }
     })
 
