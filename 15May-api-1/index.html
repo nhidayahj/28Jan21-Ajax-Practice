@@ -16,17 +16,26 @@
 <body>
     <div class="container">
         <h1>TV Shows</h1>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="tv-genre"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="form-group row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="search by title" id="search-field"/>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" id="search-btn">Search</button>
+            </div>
+        </div>
+        <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="tv-genre" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 Filter Genre
             </button>
             <div class="dropdown-menu" aria-labelledby="tv-genre" id="tv-genre-menu">
             </div>
         </div>
 
+
         <div id="genre-result">
-            
+
         </div>
         <div class=''>
             <div class="row" id="content">

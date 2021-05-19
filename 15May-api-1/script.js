@@ -52,5 +52,15 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
     })
 
+
+    document.querySelector('#search-btn').addEventListener('click', async function() {
+        let searchTitle = document.querySelector('#search-field').value;
+        console.log("query search: ",searchTitle);
+        let searchVal = await searchShow(searchTitle);
+        console.log(searchVal)
+        showTVCards(searchVal);
+        displayResult(searchVal,searchTitle);
+    })
+
 })
 
