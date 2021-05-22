@@ -52,17 +52,19 @@ function filterGenre(shows, genre) {
 
 // alert function for filter result
 function displayResult(shows, name) {
-    let result = `
-    <div class="alert alert-info mt-3" role="alert">
-        <b>${name}:</b> ${shows.length} search result(s) found   
-    </div>
+        let result = `
+        <div class="alert alert-info mt-3" role="alert">
+            <b>${name}:</b> ${shows.length} search result(s) found   
+        </div>
+        
+        `
+        document.querySelector('#genre-result').innerHTML = result;
     
-    `
-    document.querySelector('#genre-result').innerHTML = result;
 }
 
 // display search result cards
 function showTVCards(shows) {
+    
     document.getElementById('content').style.display = "none";
     let showsArr = [];
     for (let show of shows) {
@@ -74,10 +76,36 @@ function showTVCards(shows) {
                                <img class="card-img-top" src="${show.image.medium}" alt="Card image cap">
                                    <div class="card-body">
                                        <h5 class="card-title">${show.title}</h5>
-                                       <a href="${homeUrl}${show.id}/${show.title}" class="btn btn-primary" id=${show.id}>Read More</a>
+                                       <button class="btn btn-primary" data-toggle="modal" data-target="#${show.id}" >Read More</button>
                                    </div>
                                </div>
                            </div>
+
+                           <div class="modal fade" id="${show.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">${show.title}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <img src="${show.image.medium}" alt="Card image cap">
+                                    </div>
+                                    <div>
+                                        <p><b>Genre:</b> ${show.genre.join(', ')}</p>
+                                        <p><b>Ratings:</b> ${show.ratings}</p>
+                                        <p><b>Plot:</b> ${show.summary}</p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                        `
             )
         }
@@ -89,10 +117,34 @@ function showTVCards(shows) {
                                <img class="card-img-top" src=".." alt="Card image cap">
                                    <div class="card-body">
                                        <h5 class="card-title">${show.title}</h5>
-                                       <a href="#" class="btn btn-primary" id=${show.id}>Read More</a>
+                                       <button class="btn btn-primary" data-toggle="modal" data-target="#${show.id}">Read More</button>
                                    </div>
                                </div>
                            </div>
+
+                           <div class="modal fade" id="${show.id}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">${show.title}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                   
+                                    <div>
+                                        <p><b>Genre:</b> ${show.genre.join(', ')}</p>
+                                        <p><b>Ratings:</b> ${show.ratings}</p>
+                                        <p><b>Plot:</b> ${show.summary}</p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                        `
             )
         }

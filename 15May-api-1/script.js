@@ -15,39 +15,85 @@ window.addEventListener('DOMContentLoaded', async () => {
     console.log("Random show index: ", arr);
     // display tv cards 
     for (let i of arr) {
-        showCard = `
-            <div class="col-3 mt-3 mb-3">
-                <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="${allShows[i].image.medium}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">${allShows[i].name}</h5>
-                        <p class="card-body">Genre: ${allShows[i].genres.join(', ')}</p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${allShows[i].id}" 
-                        >Read More</button>
+        if (i.image !== null ) {
+            showCard = `
+                <div class="col-3 mt-3 mb-3">
+                    <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="${allShows[i].image.medium}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">${allShows[i].name}</h5>
+            
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${allShows[i].id}" 
+                            >Read More</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="modal fade" id="${allShows[i].id}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">${allShows[i].name}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
+    
+                <div class="modal fade" id="${allShows[i].id}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">${allShows[i].name}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <img src="${allShows[i].image.medium}" alt="Card image cap">
+                        </div>
+                        <div>
+                            <p><b>Genre:</b> ${allShows[i].genres.join(', ')}</p>
+                            <p><b>Ratings:</b> ${allShows[i].rating.average}</p>
+                            <p><b>Plot:</b> ${allShows[i].summary}</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    ${allShows[i].summary}
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+            `
+        } else {
+            showCard = `
+                <div class="col-3 mt-3 mb-3">
+                    <div class="card" style="width: 18rem;">
+                    
+                        <div class="card-body">
+                            <h5 class="card-title">${allShows[i].name}</h5>
+            
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#${allShows[i].id}" 
+                            >Read More</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="modal fade" id="${allShows[i].id}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">${allShows[i].name}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div>
+                            <p><b>Genre:</b> ${allShows[i].genres.join(', ')}</p>
+                            <p><b>Ratings:</b> ${allShows[i].rating.average}</p>
+                            <p><b>Plot:</b> ${allShows[i].summary}</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
                 </div>
                 </div>
-            </div>
-            </div>
-        `
+            `
+        }
         document.getElementById('content').innerHTML += showCard;
     }
 
@@ -77,12 +123,17 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 
     document.querySelector('#search-btn').addEventListener('click', async function () {
-        let searchTitle = document.querySelector('#search-field').value.toString();
+        let searchTitle = document.querySelector('#search-field').value;
         console.log("query search: ", searchTitle);
-        let searchVal = await searchShow(searchTitle);
-        console.log(searchVal)
-        showTVCards(searchVal);
-        displayResult(searchVal, searchTitle);
+        if (searchTitle === "") {
+            // displayResult(0, searchTitle)
+            
+        } else {
+            let searchVal = await searchShow(searchTitle);
+            console.log(searchVal)
+            showTVCards(searchVal);
+            displayResult(searchVal, searchTitle);
+        }
     })
 
 })
