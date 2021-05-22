@@ -1,4 +1,5 @@
 // GET all tv shows 
+let homeUrl = "https://8000-coral-spider-nmtnohdq.ws-us04.gitpod.io/15May-api-1/"
 
 async function loadData() {
     let response = await axios.get('https://api.tvmaze.com/shows');
@@ -73,8 +74,7 @@ function showTVCards(shows) {
                                <img class="card-img-top" src="${show.image.medium}" alt="Card image cap">
                                    <div class="card-body">
                                        <h5 class="card-title">${show.title}</h5>
-                                       
-                                       <a href="#" class="btn btn-primary" id=${show.id}>Read More</a>
+                                       <a href="${homeUrl}${show.id}/${show.title}" class="btn btn-primary" id=${show.id}>Read More</a>
                                    </div>
                                </div>
                            </div>
